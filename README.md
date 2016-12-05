@@ -29,9 +29,12 @@
 	make
 
 ### description:
->main.cpp>
->	detect text regions from input image>
->img2label.cpp>
+>main.cpp
+>
+>	detect text regions from input image
+>
+>img2label.cpp
+>
 >	transform images into labeled HOG vectors data
 >svmtrain.cpp>
 >	transform labeled HOG vectors data into SVM model
