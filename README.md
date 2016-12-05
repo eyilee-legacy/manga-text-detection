@@ -68,7 +68,7 @@ img2label
 >images: the cc or ccr images you want to label
 
 svmtrain
->	./svmtrain -s <output> <files ...>
+>	./svmtrain -s \<output\> \<files ...\>
 
 >e.g.	./svmtrain -s ccx.xml ../train/connectedcomponents/*/*.xml
 
