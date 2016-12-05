@@ -29,43 +29,49 @@
 	make
 
 ### description:
->main.cpp
->
->>	detect text regions from input image
->
->img2label.cpp
->
->>	transform images into labeled HOG vectors data
->svmtrain.cpp
->
->>	transform labeled HOG vectors data into SVM model
->ccx.xml
->
->>	SVM model of cc
->ccrx.xml
+main.cpp
+>	detect text regions from input image
 
->>	SVM model of ccr
+img2label.cpp
+>	transform images into labeled HOG vectors data
 
->images/
->>	original cc and ccr images
->train/
->
->>	labeled HOG vectors data
+svmtrain.cpp
+>	transform labeled HOG vectors data into SVM model
+
+ccx.xml
+>	SVM model of cc
+
+ccrx.xml
+>	SVM model of ccr
+
+images/
+>	original cc and ccr images
+
+train/
+>	labeled HOG vectors data
 
 ### usage:
->main
+main
 >	./main <images ...>
+
 >images: original manga pages
->
->img2label
+
+img2label
 >	./img2label -s <output> -l <label> <images ...>
+
 >e.g.	./img2label -s ../train/connectedcomponents/word/Arisa.xml -l 1 ../images/connectedcomponent/Arisa/word/*.jpg
+
 >output: the file you want to save the labeled HOG vectors data
+
 >label: 1 or -1 to assign the images are words or not
+
 >images: the cc or ccr images you want to label
->
->svmtrain
+
+svmtrain
 >	./svmtrain -s <output> <files ...>
+
 >e.g.	./svmtrain -s ccx.xml ../train/connectedcomponents/*/*.xml
+
 >output: the file you want to save the SVM model
+
 >files: the labeled HOG vectors data you want to train
