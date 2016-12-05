@@ -31,21 +31,26 @@
 ### description:
 >main.cpp
 >
->	detect text regions from input image
+>>	detect text regions from input image
 >
 >img2label.cpp
 >
->	transform images into labeled HOG vectors data
->svmtrain.cpp>
->	transform labeled HOG vectors data into SVM model
+>>	transform images into labeled HOG vectors data
+>svmtrain.cpp
+>
+>>	transform labeled HOG vectors data into SVM model
 >ccx.xml
->	SVM model of cc
+>
+>>	SVM model of cc
 >ccrx.xml
->	SVM model of ccr
+
+>>	SVM model of ccr
+
 >images/
->	original cc and ccr images
+>>	original cc and ccr images
 >train/
->	labeled HOG vectors data
+>
+>>	labeled HOG vectors data
 
 ### usage:
 >main
