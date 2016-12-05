@@ -52,14 +52,14 @@ train/
 
 ### usage:
 main
->	./main <images ...>
+>	./main \<images ...\>
 
 >images: original manga pages
 
 img2label
->	./img2label -s <output> -l <label> <images ...>
+>	./img2label -s \<output\> -l \<label\> \<images ...\>
 
->e.g.	./img2label -s ../train/connectedcomponents/word/Arisa.xml -l 1 ../images/connectedcomponent/Arisa/word/*.jpg
+>ex	./img2label -s ../train/connectedcomponents/word/Arisa.xml -l 1 ../images/connectedcomponent/Arisa/word/*.jpg
 
 >output: the file you want to save the labeled HOG vectors data
 
@@ -70,7 +70,7 @@ img2label
 svmtrain
 >	./svmtrain -s \<output\> \<files ...\>
 
->e.g.	./svmtrain -s ccx.xml ../train/connectedcomponents/*/*.xml
+>ex	./svmtrain -s ccx.xml ../train/connectedcomponents/*/*.xml
 
 >output: the file you want to save the SVM model
 
