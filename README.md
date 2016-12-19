@@ -29,42 +29,42 @@
 	make
 
 ### description:
-main.cpp
+#### main.cpp
 >	detect text regions from images
 
-img2cc.cpp
+#### img2cc.cpp
 >	extract connectedcomponents from original images
 
-img2ccr.cpp
+#### img2ccr.cpp
 >	extract connectedcomponent-regions form original images
 
-img2label.cpp
+#### img2label.cpp
 >	transform images into labeled HOG vectors data
 
-svmtrain.cpp
+#### svmtrain.cpp
 >	transform labeled HOG vectors data into SVM model
 
-ccx.xml
+#### ccx.xml
 >	SVM model of connectedcomponents
 
-ccrx.xml
+#### ccrx.xml
 >	SVM model of connectedcomponent-regions
 
-images/
+#### images/
 >	connectedcomponents and connectedcomponent-regions images
 
-train/
+#### train/
 >	labeled HOG vectors data
 
 ### usage:
-main
+#### main
 >	./main \<images ...\>
 
 	ex	./main  dataset/Arisa/*.jpg
 
 >images: original manga pages
 
-img2cc
+#### img2cc
 >	./img2cc -s \<output dir\> \<images ...\>
 
 	ex	./img2cc -s Arisa_cc dataset/Arisa/*.jpg
@@ -73,10 +73,10 @@ img2cc
 
 >images: original manga pages
 
-img2ccr
+#### img2ccr
 >	same as img2cc
 
-img2label
+#### img2label
 >	./img2label -s \<output\> -l \<label\> \<images ...\>
 
 	ex	./img2label -s train/connectedcomponents/word/Arisa.xml -l 1 images/connectedcomponent/Arisa/word/*.jpg
@@ -87,7 +87,7 @@ img2label
 
 >images: the cc or ccr images you want to label
 
-svmtrain
+#### svmtrain
 >	./svmtrain -s \<output\> \<files ...\>
 
 	ex	./svmtrain -s ccx.xml train/connectedcomponents/*/*.xml
