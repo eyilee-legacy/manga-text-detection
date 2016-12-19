@@ -60,12 +60,14 @@ train/
 main
 >	./main \<images ...\>
 
+	ex	./main  dataset/Arisa/*.jpg
+
 >images: original manga pages
 
 img2cc
 >	./img2cc -s \<output dir\> \<images ...\>
 
-><ex>./img2cc -s Arisa_cc dataset/Arisa/*.jpg</ex>
+	ex	./img2cc -s Arisa_cc dataset/Arisa/*.jpg
 
 >output dir: the folder where you want to save your connectedcomponent-images
 
@@ -77,7 +79,7 @@ img2ccr
 img2label
 >	./img2label -s \<output\> -l \<label\> \<images ...\>
 
->ex	./img2label -s ../train/connectedcomponents/word/Arisa.xml -l 1 ../images/connectedcomponent/Arisa/word/*.jpg
+	ex	./img2label -s train/connectedcomponents/word/Arisa.xml -l 1 images/connectedcomponent/Arisa/word/*.jpg
 
 >output: the file you want to save the labeled HOG vectors data
 
@@ -88,7 +90,7 @@ img2label
 svmtrain
 >	./svmtrain -s \<output\> \<files ...\>
 
->ex	./svmtrain -s ccx.xml ../train/connectedcomponents/*/*.xml
+	ex	./svmtrain -s ccx.xml train/connectedcomponents/*/*.xml
 
 >output: the file you want to save the SVM model
 
