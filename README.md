@@ -30,7 +30,13 @@
 
 ### description:
 main.cpp
->	detect text regions from input image
+>	detect text regions from images
+
+img2cc.cpp
+>	extract connectedcomponents from original images
+
+img2ccr.cpp
+>	extract connectedcomponent-regions form original images
 
 img2label.cpp
 >	transform images into labeled HOG vectors data
@@ -39,13 +45,13 @@ svmtrain.cpp
 >	transform labeled HOG vectors data into SVM model
 
 ccx.xml
->	SVM model of cc
+>	SVM model of connectedcomponents
 
 ccrx.xml
->	SVM model of ccr
+>	SVM model of connectedcomponent-regions
 
 images/
->	original cc and ccr images
+>	connectedcomponents and connectedcomponent-regions images
 
 train/
 >	labeled HOG vectors data
@@ -55,6 +61,18 @@ main
 >	./main \<images ...\>
 
 >images: original manga pages
+
+img2cc
+>	./img2cc -s \<output dir\> \<images ...\>
+
+><ex>./img2cc -s Arisa_cc dataset/Arisa/*.jpg</ex>
+
+>output dir: the folder where you want to save your connectedcomponent-images
+
+>images: original manga pages
+
+img2ccr
+>	same as img2cc
 
 img2label
 >	./img2label -s \<output\> -l \<label\> \<images ...\>
