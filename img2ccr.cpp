@@ -8,19 +8,35 @@ using namespace std;
 using namespace cv;
 using namespace cv::ml;
 
-void showLabeledArea(Mat &, Mat &, int = 0);
-
 int main(int argc, char **argv) {
-    if (argc < 2) {
-        cout << "Usage is <images>" << endl;
+    if (argc < 4) {
+        cout << "Usage is -s <output dir> <images ...>" << endl;        
         return 0;
     }
 
-    for(int n = 1; n < argc; ++n) {
-        string file = argv[n];
+    string dirName;
+    for (int i = 1; i < 3; ++i) {
+        if (strcmp(argv[i], "-s") == 0) {
+            if (argv[i + 1] != NULL) {
+                dirName = argv[i + 1];
+                ++i;
+            } else {
+                cout << "Usage is -s <output dir> <images ...>" << endl;
+                return 0;
+            }
+        }
+    }
+
+    string mkdirCommand = "mkdir " + dirName;
+    system(mkdirCommand.c_str());
+
+    int count = 0;
+    for (int i = 3; i < argc; ++i) {
+        string file = argv[i];
         Mat srcImg = imread(file, IMREAD_COLOR);
 
         if (srcImg.empty()) {
+            cout << "Can't open file \"" << file << "\"." << endl; 
             return -1;
         }
 
@@ -45,8 +61,6 @@ int main(int argc, char **argv) {
                 clrStats.push_back(stats.row(i));
             }
         }
-
-        // showLabeledArea(srcImg, clrStats);
 
         CvSize winSize = CvSize(8, 8);
         CvSize blockSize = CvSize(4, 4);
@@ -90,8 +104,6 @@ int main(int argc, char **argv) {
                 continue;
             }
         }
-
-        // showLabeledArea(srcImg, svmStats);
 
         for (int i = 0; i < svmStats.rows; ++i) {
             if (svmStats.at<int>(i, CC_STAT_AREA) == 0) {
@@ -146,59 +158,18 @@ int main(int argc, char **argv) {
             }
         }
 
-        // showLabeledArea(srcImg, grpStats);
-
-        hogVector.release();
-        hogVector.create(grpStats.rows, bins, CV_32FC1);
         for (int i = 0; i < grpStats.rows; ++i) {
-            vector<float> descriptors;
-            Mat srcRoi = grayImg(Rect(grpStats.at<int>(i, CC_STAT_LEFT), grpStats.at<int>(i, CC_STAT_TOP), grpStats.at<int>(i, CC_STAT_WIDTH), grpStats.at<int>(i, CC_STAT_HEIGHT))).clone();
-            hog.compute(srcRoi, descriptors, winShiftSize, paddingSize);   
-
-            float result[bins] = {0};
-            for (int j = 0; j < descriptors.size(); ++j) {
-                result[j % bins] += descriptors[j];
-            }
-
-            for (int j = 0; j < bins; ++j) {                
-                result[j] = result[j] / (descriptors.size() / bins);
-            }
-
-            for (int j = 0; j < bins; ++j) {
-                hogVector.at<float>(i, j) = result[j]; 
-            }
-        }
-
-        svmAns.release();
-        svm.release();
-        svm = SVM::load("ccrx.xml");
-        svm->predict(hogVector, svmAns);
-
-        svmStats.release();
-        for (int i = 0; i < svmAns.rows; ++i) {
-            if (svmAns.at<float>(i) == 1) {
-                svmStats.push_back(grpStats.row(i));
+            ++count;
+            string ccName;
+            if (dirName.back() == '/') {
+                ccName = dirName + "ccr" + to_string(count) + ".jpg";
             } else {
-                continue;
+                ccName = dirName + "/ccr" + to_string(count) + ".jpg";
             }
+            Mat srcRoi = grayImg(Rect(grpStats.at<int>(i, CC_STAT_LEFT), grpStats.at<int>(i, CC_STAT_TOP), grpStats.at<int>(i, CC_STAT_WIDTH), grpStats.at<int>(i, CC_STAT_HEIGHT))).clone();
+            imwrite(ccName, srcRoi);
         }
-
-        showLabeledArea(srcImg, svmStats);
     }
 
     return 0;
-}
-
-void showLabeledArea(Mat &srcImg, Mat &stats, int ptr) {
-    Mat showImg = srcImg.clone();
-	for (int i = 0; i < stats.rows; ++i) {
-			rectangle(showImg,
-                Point(stats.at<int>(i, CC_STAT_LEFT),
-                    stats.at<int>(i, CC_STAT_TOP)),
-				Point(stats.at<int>(i, CC_STAT_LEFT) + stats.at<int>(i, CC_STAT_WIDTH),
-					stats.at<int>(i, CC_STAT_TOP) + stats.at<int>(i, CC_STAT_HEIGHT)),
-				Scalar(255 * ptr, 0, 255 * (1 - ptr)), 2);
-	}
-	imshow("Image", showImg);
-	waitKey(0);
 }

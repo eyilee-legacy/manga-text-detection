@@ -6,15 +6,13 @@ using namespace std;
 using namespace cv;
 
 int main(int argc, char **argv) {
-    int label;
-    Mat hog;
-
-    string fileName;
     if (argc < 6) {
         cout << "Usage is -s <output> -l <label> <images ...>" << endl;
         return 0;
     }
 
+    int label;    
+    string fileName;
     for (int i = 1; i < 5; ++i) {
         if (strcmp(argv[i], "-s") == 0) {
             if (argv[i + 1] != NULL) {
@@ -34,7 +32,8 @@ int main(int argc, char **argv) {
             }
         }
     }
-    
+
+    Mat hog;
     for (int i = 5; i < argc; ++i) {
         string file = argv[i];
         Mat srcImg = imread(file, IMREAD_COLOR);
